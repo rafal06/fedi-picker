@@ -1,5 +1,5 @@
 import {Button, FormControl, FormLabel, FormText, Row} from "react-bootstrap";
-import {useContext} from "preact/hooks";
+import {useContext, useState} from "preact/hooks";
 import {SettingsContext} from "./SettingsContext.tsx";
 
 export default function SettingsForm() {
@@ -27,6 +27,44 @@ export default function SettingsForm() {
         }
     }
 
+    const [isCorrectUsernameFormat, setIsCorrectUsernameFormat] = useState(true);
+    const [isFirstMustFollowInput, setIsFirstMustFollowInput] = useState(true);
+
+    const handleMustFollowChange = event => {
+        const userArr: Array<string> = [];
+        event.target.value.split(',').forEach(value => {
+            value = value.trim();
+            if (value !== '') userArr.push(value);
+        });
+
+        setSettings({
+            ...settings,
+            mustFollow: userArr,
+        });
+
+        if (userArr.length === 0) {
+            setIsCorrectUsernameFormat(true);
+            return;
+        }
+
+        for (const username of userArr) {
+            if (/@[^\s@,]+?@[^\s@,]+?\.[^\s@,]+/i.test(username)) continue;
+
+            setIsCorrectUsernameFormat(false);
+            return;
+        }
+
+        setIsCorrectUsernameFormat(true);
+    }
+
+    const handleMustFollowBlur = event => {
+        setIsFirstMustFollowInput(false);
+        handleMustFollowChange(event);
+        if (settings.mustFollow.length === 0) {
+            setIsCorrectUsernameFormat(false);
+        }
+    }
+
     return (
         <Row className="g-3">
             <div>
@@ -38,7 +76,10 @@ export default function SettingsForm() {
             </div>
             <div>
                 <FormLabel>Must follow</FormLabel>
-                <FormControl placeholder="@someone@example.social" />
+                <FormControl placeholder="@someone@example.social"
+                             isInvalid={!isCorrectUsernameFormat}
+                             onChange={isFirstMustFollowInput ? undefined : handleMustFollowChange}
+                             onBlur={handleMustFollowBlur}/>
                 <FormText>Separate usernames with a comma</FormText>
             </div>
             <div>
