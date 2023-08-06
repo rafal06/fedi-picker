@@ -1,4 +1,5 @@
-import {Col, Container, FormControl, FormLabel, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
+import PostUrlInput from "./settings-form/PostUrlInput.tsx";
 import PostPreview from "./PostPreview.tsx";
 import SettingsForm from "./SettingsForm.tsx";
 
@@ -7,8 +8,7 @@ export default function Form() {
         <Container as="main" className="p-3" style={{maxWidth: '960px'}}>
             <Row className="my-4 justify-content-center">
                 <Col md={8} style={{maxWidth: '616px'}}>
-                    <FormLabel>Post URL</FormLabel>
-                    <FormControl placeholder="https://example.social/@someone/110815462944644507" />
+                    <PostUrlInput />
                 </Col>
             </Row>
             <Row className="my-4">
