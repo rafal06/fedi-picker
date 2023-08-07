@@ -1,12 +1,8 @@
 import {Button, Row} from "react-bootstrap";
-import {useContext} from "preact/hooks";
-import {SettingsContext} from "./SettingsContext.tsx";
 import WinnerCountInput from "./settings-form/WinnerCountInput.tsx";
 import MustFollowInput from "./settings-form/MustFollowInput.tsx";
 
 export default function SettingsForm() {
-    const { settings, setSettings } = useContext(SettingsContext);
-
     return (
         <Row className="g-3">
             <div>

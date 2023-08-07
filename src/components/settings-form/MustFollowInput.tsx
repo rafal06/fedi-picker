@@ -8,9 +8,9 @@ export default function MustFollowInput() {
     const [isCorrectFormat, setIsCorrectFormat] = useState(true);
     const [isFirstInput, setIsFirstInput] = useState(true);
 
-    const handleChange = event => {
+    const handleChange = (event: any) => {
         const userArr: Array<string> = [];
-        event.target.value.split(',').forEach(value => {
+        event.target.value.split(',').forEach((value: string) => {
             value = value.trim();
             if (value !== '') userArr.push(value);
         });
@@ -35,7 +35,7 @@ export default function MustFollowInput() {
         setIsCorrectFormat(true);
     }
 
-    const handleBlur = event => {
+    const handleBlur = (event: any) => {
         setIsFirstInput(false);
         handleChange(event);
         if (settings.mustFollow.length === 0) {

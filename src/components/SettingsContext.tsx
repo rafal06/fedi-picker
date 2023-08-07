@@ -22,7 +22,7 @@ export const SettingsContext = createContext<{
     setSettings: () => {},
 });
 
-export default function SettingsProvider(props) {
+export default function SettingsProvider(props: any) {
     const [settings, setSettings] = useState(defaultValue);
     const settingsMemo = useMemo(() => {
         return { settings, setSettings }

@@ -5,7 +5,7 @@ import {SettingsContext} from "../SettingsContext.tsx";
 export default function PostUrlInput() {
     const { settings, setSettings } = useContext(SettingsContext);
 
-    const handleChange = event => {
+    const handleChange = (event: any) => {
         setSettings({
             ...settings,
             postUrl: event.target.value,

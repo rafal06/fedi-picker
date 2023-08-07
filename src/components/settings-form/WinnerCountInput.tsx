@@ -5,7 +5,7 @@ import {SettingsContext} from "../SettingsContext.tsx";
 export default function WinnerCountInput() {
     const { settings, setSettings } = useContext(SettingsContext);
 
-    const handleChange = event => {
+    const handleChange = (event: any) => {
         const newValue = Number(event.target.value);
         if (newValue < 0) {
             setSettings({...settings});
@@ -18,7 +18,7 @@ export default function WinnerCountInput() {
         })
     }
 
-    const handleBlur = event => {
+    const handleBlur = (event: any) => {
         if (event.target.value == 0) {
             setSettings({
                 ...settings,
