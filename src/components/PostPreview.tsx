@@ -66,7 +66,27 @@ export default function PostPreview() {
                 </div>
             </div>
             <div>
-                <p className="m-0">{postData.content}</p>
+                <p style={{marginBottom: "-1rem"}}
+                   dangerouslySetInnerHTML={{__html: postData.content}}></p>
+            </div>
+            <div className="d-grid gap-1 overflow-hidden" style={{
+                paddingTop: `${postData.mediaUrls.length != 0 ? "10px": ''}`,
+                aspectRatio: "16/9",
+                gridTemplateColumns: "1fr 1fr",
+                gridTemplateRows: "1fr 1fr",
+            }}>
+                {postData.mediaUrls.map((url, index) => (
+                    <img key={index} className="bg-black w-100 h-100 object-fit-contain rounded-1" src={url} alt="" style={
+                        postData.mediaUrls.length == 1 ? {
+                            gridColumn: "span 2",
+                            gridRow: "span 2",
+                        } : postData.mediaUrls.length == 2 ? {
+                            gridRow: "span 2",
+                        } : postData.mediaUrls.length == 3 && index == 1 ? {
+                            gridRow: "span 2",
+                        } : {}
+                    }/>
+                ))}
             </div>
         </div>
     )
