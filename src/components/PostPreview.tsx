@@ -28,6 +28,14 @@ export default function PostPreview() {
                 })
             })
             .catch((err: Error) => {
+                setPostData({
+                    authorNickname: '',
+                    authorUsername: '',
+                    authorPfpUrl: '',
+                    date: new Date(),
+                    content: '',
+                    mediaUrls: [],
+                });
                 setState({
                     loading: false,
                     error: err,
