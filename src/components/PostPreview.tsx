@@ -84,7 +84,7 @@ export default function PostPreview() {
                 gridTemplateRows: "1fr 1fr",
             }}>
                 {postData.mediaUrls.map((url, index) => (
-                    <img key={index} className="bg-black w-100 h-100 object-fit-contain rounded-1" src={url} alt="" style={
+                    <img key={url} className="bg-black w-100 h-100 object-fit-contain rounded-1" src={url} alt="" style={
                         postData.mediaUrls.length == 1 ? {
                             gridColumn: "span 2",
                             gridRow: "span 2",
