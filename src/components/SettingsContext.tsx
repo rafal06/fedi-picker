@@ -5,12 +5,20 @@ export interface Settings {
     postUrl: string,
     winnerCount: number,
     mustFollow: Array<string>,
+    interactionFilter: {
+        boosted: boolean,
+        replied: boolean,
+    },
 }
 
 const defaultValue: Settings = {
     postUrl: '',
     winnerCount: 1,
     mustFollow: [],
+    interactionFilter: {
+        boosted: true,
+        replied: false,
+    },
 }
 
 export const SettingsContext = createContext<{
