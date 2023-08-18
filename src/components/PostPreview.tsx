@@ -1,5 +1,5 @@
 import {Spinner} from "react-bootstrap";
-import {useContext, useEffect, useState} from "preact/hooks";
+import {useContext, useEffect, useRef, useState} from "preact/hooks";
 import {PostData, PostDataContext} from "./PostDataContext.tsx";
 import {SettingsContext} from "./SettingsContext.tsx";
 
@@ -13,8 +13,18 @@ export default function PostPreview() {
         loading: true,
         error: null,
     });
+    const isMounted = useRef(false);
 
     useEffect(() => {
+        if (!isMounted.current) {
+            isMounted.current = true;
+            setState({
+                loading: false,
+                error: null,
+            });
+            return;
+        }
+
         setState({
             loading: true,
             error: null,
