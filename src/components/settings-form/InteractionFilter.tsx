@@ -1,4 +1,4 @@
-import {FormCheck, FormText} from "react-bootstrap";
+import {FormCheck, FormText, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {useContext} from "preact/hooks";
 import {SettingsContext} from "../SettingsContext.tsx";
 
@@ -31,11 +31,23 @@ export default function InteractionFilter() {
                        id="boosted"
                        checked={settings.interactionFilter.boosted}
                        onChange={handleBoostedChange} />
-            <FormCheck label="replied to the post"
-                       id="replied"
-                       checked={settings.interactionFilter.replied}
-                       onChange={handleRepliedChange} />
-            <FormText>You must select at least one of the options</FormText>
+            <OverlayTrigger placement="right"
+                            overlay={
+                                <Tooltip>
+                                    Filtering by replies is not yet implemented,
+                                    since it would require authentication to fetch more than 60 replies
+                                </Tooltip>
+                            }>
+                <span class="d-inline-block">
+                    <FormCheck label="replied to the post"
+                               id="replied"
+                               checked={settings.interactionFilter.replied}
+                               onChange={handleRepliedChange}
+                               disabled={true /*To be implemented*/}
+                               style={{pointerEvents: 'none'}}/>
+                </span>
+            </OverlayTrigger>
+            <FormText className="d-block">You must select at least one of the options</FormText>
         </>
     )
 }
