@@ -69,3 +69,7 @@ button:focus-visible {
   }
 }
 */
+
+.invisible {
+    font-size: 0;
+}

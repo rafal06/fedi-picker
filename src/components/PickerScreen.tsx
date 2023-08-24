@@ -4,6 +4,7 @@ import {ComponentRouterContext} from "./ComponentRouter.tsx";
 import Form from "./Form.tsx";
 import {Account, fetchBoosts, fetchFollowers} from "./fetchPickerData.ts";
 import {SettingsContext} from "./SettingsContext.tsx";
+import ProfileCard from "./ProfileCard.tsx";
 
 export default function PickerScreen() {
     const { setComponentRoute } = useContext(ComponentRouterContext);
@@ -12,11 +13,22 @@ export default function PickerScreen() {
         loading: boolean,
         error: null | Error,
         data: null | Array<Account>,
+        winner: null | Account,
     }>({
         loading: true,
         error: null,
         data: null,
+        winner: null,
     });
+
+    const drawWinner = (accountArr: Array<Account>, doSetState: boolean = false): Account => {
+        const winner = accountArr[Math.floor(Math.random() * accountArr.length)];
+        if (doSetState) setState({
+            ...state,
+            winner: winner,
+        });
+        return winner;
+    }
 
     useEffect(() => {
         (async () => {
@@ -43,6 +55,7 @@ export default function PickerScreen() {
                 loading: false,
                 error: null,
                 data: filteredArr,
+                winner: drawWinner(filteredArr),
             });
 
         })().catch((err: Error) => {
@@ -50,6 +63,7 @@ export default function PickerScreen() {
                 loading: false,
                 error: err,
                 data: null,
+                winner: null,
             });
         });
     }, []);
@@ -76,14 +90,16 @@ export default function PickerScreen() {
     )
 
     return (
-        <Container as="main" className="p-3" style={{maxWidth: '960px'}}>
-            <h2 className="fs-4">Not implemented</h2>
-            {/* TODO: Implement */}
-            {state.data?.map(account => (
-                <a href={account.url}>{account.acct}</a>
-            ))}
-            <Button onClick={() => setComponentRoute(<Form />)}>Go back</Button>
-        </Container>
+        <CenterContainer>
+            <h1 className="fs-2 mb-4">The winner is...</h1>
+            <ProfileCard account={state.winner as Account} />
+            <div class="mt-4 d-flex gap-3">
+                <Button variant="outline-secondary"
+                    onClick={() => setComponentRoute(<Form />)}>Go back</Button>
+                <Button variant="outline-secondary"
+                    onClick={() => drawWinner(state.data as Array<Account>, true)}>Redraw winner</Button>
+            </div>
+        </CenterContainer>
     )
 }
 
