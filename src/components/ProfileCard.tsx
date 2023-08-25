@@ -3,7 +3,7 @@ import {Account} from "./fetchPickerData.ts";
 
 export default function ProfileCard(props: { account: Account }) {
     return (
-        <div className="border rounded overflow-hidden" style={{width: '580px'}}>
+        <div className="border rounded overflow-hidden" style={{maxWidth: '580px', flexBasis: '580px'}}>
             <img className="w-100" src={props.account.header} alt="header image"
                  style={{height: 145, objectFit: 'cover'}}/>
             <div style={{paddingInline: 20, paddingBottom: 3}}>

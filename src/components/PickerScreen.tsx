@@ -97,9 +97,12 @@ export default function PickerScreen() {
     return (
         <CenterContainer>
             <h1 className="fs-2 mb-4">The winner{settings.winnerCount > 1 ? 's are': ' is'}...</h1>
-            <div class="d-flex flex-column gap-3">
+            <div class="d-flex flex-column gap-3 align-items-stretch align-self-stretch">
                 {state.winners?.map(account => (
-                    <ProfileCard account={account} />
+                    // Additional flex div, so that the profile card doesn't shrink when it doesn't need to
+                    <div className="d-flex justify-content-center">
+                        <ProfileCard account={account} />
+                    </div>
                 ))}
             </div>
             <div class="mt-4 d-flex gap-4">
