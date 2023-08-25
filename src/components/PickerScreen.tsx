@@ -115,8 +115,8 @@ export default function PickerScreen() {
 function CenterContainer(props: any) {
     return (
         <Container as="main"
-                   className="p-3 d-flex flex-column justify-content-center align-items-center"
-                   style={{maxWidth: '960px', marginTop: '200px'}}>
+                   className="p-3 my-3 d-flex flex-column justify-content-center align-items-center"
+                   style={{flex: '1', maxWidth: '960px'}}>
             {props.children}
         </Container>
     )
