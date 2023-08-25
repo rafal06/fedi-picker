@@ -13,21 +13,26 @@ export default function PickerScreen() {
         loading: boolean,
         error: null | Error,
         data: null | Array<Account>,
-        winner: null | Account,
+        winners: null | Array<Account>,
     }>({
         loading: true,
         error: null,
         data: null,
-        winner: null,
+        winners: null,
     });
 
-    const drawWinner = (accountArr: Array<Account>, doSetState: boolean = false): Account => {
-        const winner = accountArr[Math.floor(Math.random() * accountArr.length)];
+    const drawWinners = (accountArr: Array<Account>, doSetState: boolean = false): Array<Account> => {
+        const winners: Array<Account> = [];
+        for (let i = 0; i < settings.winnerCount; i++) {
+            const winnerIndex = Math.floor(Math.random() * accountArr.length);
+            winners.push(accountArr[winnerIndex]);
+            accountArr.splice(winnerIndex, 1);
+        }
         if (doSetState) setState({
             ...state,
-            winner: winner,
+            winners: winners,
         });
-        return winner;
+        return winners;
     }
 
     useEffect(() => {
@@ -55,7 +60,7 @@ export default function PickerScreen() {
                 loading: false,
                 error: null,
                 data: filteredArr,
-                winner: drawWinner(filteredArr),
+                winners: drawWinners(filteredArr),
             });
 
         })().catch((err: Error) => {
@@ -63,10 +68,10 @@ export default function PickerScreen() {
                 loading: false,
                 error: err,
                 data: null,
-                winner: null,
+                winners: null,
             });
         });
-    }, []);
+    }, [settings]);
 
     if (state.loading) return (
         <CenterContainer>
@@ -91,13 +96,17 @@ export default function PickerScreen() {
 
     return (
         <CenterContainer>
-            <h1 className="fs-2 mb-4">The winner is...</h1>
-            <ProfileCard account={state.winner as Account} />
-            <div class="mt-4 d-flex gap-3">
+            <h1 className="fs-2 mb-4">The winner{settings.winnerCount > 1 ? 's are': ' is'}...</h1>
+            <div class="d-flex flex-column gap-3">
+                {state.winners?.map(account => (
+                    <ProfileCard account={account} />
+                ))}
+            </div>
+            <div class="mt-4 d-flex gap-4">
                 <Button variant="outline-secondary"
                     onClick={() => setComponentRoute(<Form />)}>Go back</Button>
                 <Button variant="outline-secondary"
-                    onClick={() => drawWinner(state.data as Array<Account>, true)}>Redraw winner</Button>
+                    onClick={() => drawWinners(state.data as Array<Account>, true)}>Redraw winner{settings.winnerCount > 1 ? 's': ''}</Button>
             </div>
         </CenterContainer>
     )
