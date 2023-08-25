@@ -80,7 +80,7 @@ export default function PostPreview() {
                      style={{height: '46px', marginInlineEnd: '10px'}}/>
                 <div>
                     <p className="m-0 fw-bold">{postData.authorNickname}</p>
-                    <p className="m-0" style={{opacity: '80%'}}>{postData.authorUsername}</p>
+                    <p className="m-0" style={{opacity: '80%'}}>@{postData.authorUsername}</p>
                 </div>
             </div>
             <div>
