@@ -17,7 +17,7 @@ export default function Navbar() {
                 <BsNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link onClick={() => setComponentRoute(<AboutPage />)}>About</Nav.Link>
-                        <Nav.Link href="#">Source Code</Nav.Link>
+                        <Nav.Link href="https://github.com/rafal06/fedi-picker" target="_blank">Source Code</Nav.Link>
                     </Nav>
                 </BsNavbar.Collapse>
             </Container>
