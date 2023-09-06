@@ -1,7 +1,7 @@
 
 export default function autoSetTheme() {
     const setTheme = (theme: string) => {
-        document.querySelector('html').setAttribute('data-bs-theme', theme);
+        document.querySelector('html')?.setAttribute('data-bs-theme', theme);
     }
     const getPreferredTheme = (): string => {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
